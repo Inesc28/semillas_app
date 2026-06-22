@@ -1,8 +1,8 @@
+// village_screen.dart
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:semillas_app/core/router/router.dart';
 import '../layouts/base_layout.dart';
-import 'curiara_travel_screen.dart';
-import 'grandfather_screen.dart';
-import 'ebook_screen.dart';
 
 class VillageScreen extends StatelessWidget {
   const VillageScreen({super.key});
@@ -99,37 +99,19 @@ class VillageScreen extends StatelessWidget {
                   context,
                   icon: Icons.rowing,
                   color: const Color(0xFF0288D1),
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CuriaraTravelScreen(),
-                        ),
-                      ),
+                  onTap: () => context.go(AppRoutes.curiaraTravel),
                 ),
                 _buildNavButton(
                   context,
                   icon: Icons.person_2_sharp,
                   color: const Color(0xFFD84315),
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const GrandfatherScreen(),
-                        ),
-                      ),
+                  onTap: () => context.go(AppRoutes.grandfather),
                 ),
                 _buildNavButton(
                   context,
                   icon: Icons.menu_book,
                   color: const Color(0xFF388E3C),
-                  onTap:
-                      () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const EbookScreen(),
-                        ),
-                      ),
+                  onTap: () => context.go(AppRoutes.ebook),
                 ),
                 _buildNavButton(
                   context,

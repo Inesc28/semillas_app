@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:go_router/go_router.dart';
+import 'package:semillas_app/core/router/router.dart';
 import '../layouts/base_layout.dart';
 import 'village_screen.dart';
 
@@ -33,10 +35,7 @@ class _StartScreenState extends State<StartScreen> {
 
   void _startGame() {
     _audioPlayer.stop();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const VillageScreen()),
-    );
+    context.go(AppRoutes.village); // Navega a la pantalla del pueblo
   }
 
   @override

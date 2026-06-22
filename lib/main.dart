@@ -1,6 +1,7 @@
+// main.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
-import 'views/screens/start_screen.dart'; 
+import 'package:flutter/services.dart';
+import 'package:semillas_app/core/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Semillas de Identidad',
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const StartScreen(), 
+      routerConfig: AppRoutes.router,
     );
   }
 }
