@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
-import 'views/screens/start_screen.dart'; 
+import 'package:flutter/services.dart';
+import 'core/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Modo Inmersivo Total
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  
+  // Forzar transparencia
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+  ));
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
@@ -18,14 +27,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Semillas de Identidad',
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const StartScreen(), 
+      routerConfig: appRouter,
     );
   }
 }

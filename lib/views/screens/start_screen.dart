@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:go_router/go_router.dart';
 import '../layouts/base_layout.dart';
-import 'village_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -10,14 +10,25 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => _StartScreenState();
 }
 
-class _StartScreenState extends State<StartScreen> {
+class _StartScreenState extends State<StartScreen> with WidgetsBindingObserver {
   late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _audioPlayer = AudioPlayer();
     _playBackgroundMusic();
+  }
+
+  // Control de audio
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _audioPlayer.pause();
+    } else if (state == AppLifecycleState.resumed) {
+      _audioPlayer.resume();
+    }
   }
 
   void _playBackgroundMusic() async {
@@ -27,162 +38,139 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _audioPlayer.dispose();
     super.dispose();
   }
 
   void _startGame() {
     _audioPlayer.stop();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const VillageScreen()),
-    );
+    context.go('/creation');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      backgroundPath: 'assets/images/Home_bg.webp',
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return MediaQuery.removePadding(
+      context: context,
+      removeLeft: true,
+      removeRight: true,
+      child: BaseLayout(
+        backgroundPath: 'assets/images/Home_bg.webp',
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(flex: 2), 
+                _buildLogo(),
+                const SizedBox(height: 15),
+                _buildWelcomeBadge(),
+                const Spacer(flex: 3), 
+                _buildStartButton(),
+                const Spacer(flex: 2),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogo() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF00695B),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFFFC107), width: 5),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black45, 
+            blurRadius: 15, 
+            offset: Offset(0, 10)
+          )
+        ],
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'SEMILLAS DE', 
+            style: TextStyle(
+              fontSize: 22, 
+              fontWeight: FontWeight.w900, 
+              color: Color(0xFFFFC107), 
+              letterSpacing: 4
+            )
+          ),
+          Text(
+            'IDENTIDAD', 
+            style: TextStyle(
+              fontSize: 45, 
+              fontWeight: FontWeight.w900, 
+              color: Colors.white, 
+              letterSpacing: 2
+            )
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWelcomeBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFAA00),
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: Colors.white, width: 2),
+      ),
+      child: const Text(
+        '¡Bienvenido a la cosecha!', 
+        style: TextStyle(
+          fontSize: 18, 
+          fontWeight: FontWeight.bold, 
+          color: Colors.white
+        )
+      ),
+    );
+  }
+
+  Widget _buildStartButton() {
+    return GestureDetector(
+      onTap: _startGame,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFFFFCA28), Color(0xFFFF8F00)], 
+            begin: Alignment.topCenter, 
+            end: Alignment.bottomCenter
+          ),
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.white, width: 3),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0xFFB15300), 
+              offset: Offset(0, 6)
+            )
+          ],
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Spacer(flex: 2),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 0, 105, 39),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFFFFC107), width: 5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 15,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: const Column(
-                children: [
-                  Text(
-                    'SEMILLAS DE',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xFFFFC107),
-                      letterSpacing: 6.0,
-                    ),
-                  ),
-                  Text(
-                    'IDENTIDAD',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: 2.0,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 8.0,
-                          color: Colors.black54,
-                          offset: Offset(2.0, 4.0),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            Icon(Icons.play_arrow_rounded, color: Colors.white, size: 35),
+            SizedBox(width: 10),
+            Text(
+              'EMPEZAR', 
+              style: TextStyle(
+                fontSize: 26, 
+                fontWeight: FontWeight.w900, 
+                color: Colors.white
+              )
             ),
-            const SizedBox(height: 25),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 170, 0),
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.white, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Text(
-                '¡Bienvenido a la cosecha!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-            const Spacer(flex: 2),
-            GestureDetector(
-              onTap: _startGame,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 35,
-                  vertical: 15,
-                ),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFFCA28), Color(0xFFFF8F00)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.white, width: 3),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Color(0xFFB15300),
-                      offset: Offset(0, 8),
-                    ),
-                    BoxShadow(
-                      color: Colors.black,
-                      blurRadius: 10,
-                      offset: const Offset(0, 12),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.play_arrow_rounded,
-                        color: Color(0xFFFF8F00),
-                        size: 32,
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    const Text(
-                      'EMPEZAR',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        letterSpacing: 2.0,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 2.0,
-                            color: Colors.black26,
-                            offset: Offset(1.0, 2.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Spacer(flex: 1),
           ],
         ),
       ),
