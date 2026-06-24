@@ -19,11 +19,7 @@ class DatabaseHelper {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, filePath);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -40,10 +36,7 @@ class DatabaseHelper {
     final db = await instance.database;
     // Eliminamos cualquier líder previo para mantener un único registro de usuario/líder
     await db.delete('lider');
-    return await db.insert('lider', {
-      'nombre': nombre,
-      'aldea': aldea,
-    });
+    return await db.insert('lider', {'nombre': nombre, 'aldea': aldea});
   }
 
   Future<Map<String, dynamic>?> verificarLiderExistente() async {

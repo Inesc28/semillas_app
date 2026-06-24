@@ -16,7 +16,9 @@ class _CreationScreenState extends State<CreationScreen> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      context.go('/village/${_leaderController.text}/${_villageController.text}');
+      context.go(
+        '/village/${_leaderController.text}/${_villageController.text}',
+      );
     }
   }
 
@@ -30,14 +32,18 @@ class _CreationScreenState extends State<CreationScreen> {
         backgroundPath: 'assets/images/Conuco_bg.webp',
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: true, 
+          resizeToAvoidBottomInset: true,
           body: Stack(
             children: [
               Positioned(
                 top: 20,
                 left: 20,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 35),
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                   onPressed: () => context.go('/'),
                 ),
               ),
@@ -50,21 +56,41 @@ class _CreationScreenState extends State<CreationScreen> {
                     margin: const EdgeInsets.symmetric(vertical: 20),
                     padding: const EdgeInsets.all(25),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF00695C).withOpacity(0.9),
+                      color: const Color(0xFF00695C),
                       borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: const Color(0xFFFFC107), width: 4),
-                      boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 10)],
+                      border: Border.all(
+                        color: const Color(0xFFFFC107),
+                        width: 4,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black45, blurRadius: 10),
+                      ],
                     ),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text('REGISTRO', style: TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold)),
+                          const Text(
+                            'REGISTRO',
+                            style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           const SizedBox(height: 15),
-                          _buildField(_leaderController, 'Nombre del Líder', Icons.person),
+                          _buildField(
+                            _leaderController,
+                            'Nombre del Líder',
+                            Icons.person,
+                          ),
                           const SizedBox(height: 15),
-                          _buildField(_villageController, 'Nombre de la Aldea', Icons.home_work),
+                          _buildField(
+                            _villageController,
+                            'Nombre de la Aldea',
+                            Icons.home_work,
+                          ),
                           const SizedBox(height: 25),
                           _buildBtn(),
                         ],
@@ -90,14 +116,17 @@ class _CreationScreenState extends State<CreationScreen> {
         labelStyle: const TextStyle(color: Colors.white70, fontSize: 14),
         filled: true,
         fillColor: Colors.black26,
-        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 15,
+        ),
+
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: Colors.white30),
         ),
-        
+
         errorStyle: const TextStyle(
           color: Color(0xFFFFC107),
           fontWeight: FontWeight.bold,
@@ -126,8 +155,12 @@ class _CreationScreenState extends State<CreationScreen> {
         elevation: 5,
       ),
       child: const Text(
-        'COMENZAR', 
-        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)
+        'COMENZAR',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -4,7 +4,7 @@ import '../layouts/base_layout.dart';
 class EbookItem {
   final String name;
   final String imagePath;
-  final String type; 
+  final String type;
   final bool descubierto;
 
   const EbookItem({
@@ -25,7 +25,7 @@ class EbookScreen extends StatefulWidget {
 class _EbookScreenState extends State<EbookScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final int _totalPages = 3; 
+  final int _totalPages = 3;
 
   @override
   void dispose() {
@@ -54,17 +54,42 @@ class _EbookScreenState extends State<EbookScreen> {
   @override
   Widget build(BuildContext context) {
     final List<EbookItem> todasLasPlantas = [
-      const EbookItem(name: 'Moriche Palm', imagePath: 'assets/images/moriche.png', type: 'planta', descubierto: true),
-      const EbookItem(name: 'Victoria Amazónica', imagePath: 'assets/images/victoria_amazonica.png', type: 'planta', descubierto: true),
+      const EbookItem(
+        name: 'Moriche Palm',
+        imagePath: 'assets/images/moriche.png',
+        type: 'planta',
+        descubierto: true,
+      ),
+      const EbookItem(
+        name: 'Victoria Amazónica',
+        imagePath: 'assets/images/victoria_amazonica.png',
+        type: 'planta',
+        descubierto: true,
+      ),
     ];
 
     final List<EbookItem> todosLosAnimales = [
-      const EbookItem(name: 'Guacamaya', imagePath: 'assets/images/guacamaya.png', type: 'animal', descubierto: true),
-      const EbookItem(name: 'Danta', imagePath: 'assets/images/danta.png', type: 'animal', descubierto: false),
+      const EbookItem(
+        name: 'Guacamaya',
+        imagePath: 'assets/images/guacamaya.png',
+        type: 'animal',
+        descubierto: true,
+      ),
+      const EbookItem(
+        name: 'Danta',
+        imagePath: 'assets/images/danta.png',
+        type: 'animal',
+        descubierto: false,
+      ),
     ];
 
     final List<EbookItem> todasLasAguas = [
-      const EbookItem(name: 'Agua Dulce', imagePath: 'assets/images/Home_bg.webp', type: 'agua', descubierto: true),
+      const EbookItem(
+        name: 'Agua Dulce',
+        imagePath: 'assets/images/Home_bg.webp',
+        type: 'agua',
+        descubierto: true,
+      ),
     ];
 
     return BaseLayout(
@@ -76,17 +101,20 @@ class _EbookScreenState extends State<EbookScreen> {
             alignment: Alignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 16.0,
+                ),
                 height: 440,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEFE6D4), 
+                  color: const Color(0xFFEFE6D4),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.4),
+                      color: Colors.black,
                       blurRadius: 10,
                       offset: const Offset(0, 5),
-                    )
+                    ),
                   ],
                   border: Border.all(color: const Color(0xFF4E342E), width: 6),
                 ),
@@ -95,7 +123,7 @@ class _EbookScreenState extends State<EbookScreen> {
                     Center(
                       child: Container(
                         width: 2,
-                        color: const Color(0xFF8D6E63).withOpacity(0.4),
+                        color: const Color(0xFF8D6E63),
                       ),
                     ),
                     PageView(
@@ -108,23 +136,38 @@ class _EbookScreenState extends State<EbookScreen> {
                       children: [
                         Row(
                           children: [
-                            Expanded(child: _buildHalfPage(titulo: "Nuestra Flora", items: todasLasPlantas)),
-                            const SizedBox(width: 16), 
-                            Expanded(child: Container()), 
+                            Expanded(
+                              child: _buildHalfPage(
+                                titulo: "Nuestra Flora",
+                                items: todasLasPlantas,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(child: Container()),
                           ],
                         ),
                         Row(
                           children: [
-                            Expanded(child: _buildHalfPage(titulo: "Nuestra Fauna", items: todosLosAnimales)),
+                            Expanded(
+                              child: _buildHalfPage(
+                                titulo: "Nuestra Fauna",
+                                items: todosLosAnimales,
+                              ),
+                            ),
                             const SizedBox(width: 16),
-                            Expanded(child: Container()), 
+                            Expanded(child: Container()),
                           ],
                         ),
                         Row(
                           children: [
-                            Expanded(child: _buildHalfPage(titulo: "Nuestra Agua", items: todasLasAguas)),
+                            Expanded(
+                              child: _buildHalfPage(
+                                titulo: "Nuestra Agua",
+                                items: todasLasAguas,
+                              ),
+                            ),
                             const SizedBox(width: 16),
-                            Expanded(child: Container()), 
+                            Expanded(child: Container()),
                           ],
                         ),
                       ],
@@ -138,7 +181,11 @@ class _EbookScreenState extends State<EbookScreen> {
                   child: CircleAvatar(
                     backgroundColor: const Color(0xFF388E3C),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFFEFE6D4), size: 18),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Color(0xFFEFE6D4),
+                        size: 18,
+                      ),
                       onPressed: _anteriorPagina,
                     ),
                   ),
@@ -149,7 +196,11 @@ class _EbookScreenState extends State<EbookScreen> {
                   child: CircleAvatar(
                     backgroundColor: const Color(0xFF388E3C),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios, color: Color(0xFFEFE6D4), size: 18),
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Color(0xFFEFE6D4),
+                        size: 18,
+                      ),
                       onPressed: _siguientePagina,
                     ),
                   ),
@@ -161,7 +212,10 @@ class _EbookScreenState extends State<EbookScreen> {
     );
   }
 
-  Widget _buildHalfPage({required String titulo, required List<EbookItem> items}) {
+  Widget _buildHalfPage({
+    required String titulo,
+    required List<EbookItem> items,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -187,7 +241,7 @@ class _EbookScreenState extends State<EbookScreen> {
           child: GridView.builder(
             scrollDirection: Axis.horizontal,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, 
+              crossAxisCount: 2,
               mainAxisSpacing: 16.0,
               crossAxisSpacing: 12.0,
               childAspectRatio: 0.85,
@@ -205,25 +259,53 @@ class _EbookScreenState extends State<EbookScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: item.descubierto
-                          ? Image.asset(
-                              item.imagePath,
-                              fit: BoxFit.contain,
-                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.image, size: 40, color: Colors.grey),
-                            )
-                          : ColorFiltered(
-                              colorFilter: const ColorFilter.matrix([
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 1, 0,
-                              ]),
-                              child: Image.asset(
+                      child:
+                          item.descubierto
+                              ? Image.asset(
                                 item.imagePath,
                                 fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) => const Icon(Icons.help_center, size: 40, color: Colors.black54),
+                                errorBuilder:
+                                    (context, error, stackTrace) => const Icon(
+                                      Icons.image,
+                                      size: 40,
+                                      color: Colors.grey,
+                                    ),
+                              )
+                              : ColorFiltered(
+                                colorFilter: const ColorFilter.matrix([
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  1,
+                                  0,
+                                ]),
+                                child: Image.asset(
+                                  item.imagePath,
+                                  fit: BoxFit.contain,
+                                  errorBuilder:
+                                      (context, error, stackTrace) =>
+                                          const Icon(
+                                            Icons.help_center,
+                                            size: 40,
+                                            color: Colors.black54,
+                                          ),
+                                ),
                               ),
-                            ),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -232,11 +314,18 @@ class _EbookScreenState extends State<EbookScreen> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: item.descubierto ? Colors.brown.shade900 : Colors.black45,
+                        color:
+                            item.descubierto
+                                ? Colors.brown.shade900
+                                : Colors.black45,
                       ),
                     ),
                     if (item.descubierto)
-                      const Icon(Icons.check_circle, color: Colors.green, size: 14),
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 14,
+                      ),
                   ],
                 ),
               );
@@ -252,7 +341,7 @@ class _EbookScreenState extends State<EbookScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF4ECD8), 
+          backgroundColor: const Color(0xFFF4ECD8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: const BorderSide(color: Color(0xFF4E342E), width: 3),
@@ -267,15 +356,12 @@ class _EbookScreenState extends State<EbookScreen> {
             ),
           ),
           content: Column(
-            mainAxisSize: MainAxisSize.min, 
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 height: 120,
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  item.imagePath,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(item.imagePath, fit: BoxFit.contain),
               ),
               const SizedBox(height: 12),
               Text(
@@ -294,12 +380,20 @@ class _EbookScreenState extends State<EbookScreen> {
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFF388E3C),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                 ),
                 child: const Text(
                   'Cerrar',
-                  style: TextStyle(color: Color(0xFFEFE6D4), fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Color(0xFFEFE6D4),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
